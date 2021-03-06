@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model GrubberDemo.Models.EmployeeViewModel
+
+<div class="container mt-2">
+    <form class="form-horizontal" action="/Home/AddEditEmployee">
+        <div class="row" >
+            <div class="col-8"><h1>Employee form</h1></div>
+            <div class="col-2">
+                <a href="/Home/GetAllEmployees" class="btn btn-md btn-primary">All Employees</a>
+            </div>
+        </div>
+        @Html.HiddenFor(h=>h.PkEmployeeId)
+        <div class="row mt-3">
+            <div class="col-5">
+                <label>FirstName</label>
+                @Html.TextBoxFor(m => m.FirstName, new { @class= "form-control", placeholder = "First Name" })
+            </div>
+            <div class="col-5">
+                <label>LastName</label>
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-5">
+                <label>Address</label>
+                @Html.TextAreaFor(m => m.Address, new { @class = "form-control",rows=5,placeholder = "Address (Max 1000)",maxlength=1000 })
+            </div>
+            <div class="col-5">
+                <label>Birth Date</label>
+                @Html.TextBoxFor(m => m.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date"})
+                <label>Join Date</label>
+                @Html.TextBoxFor(m => m.JoinDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date"})
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-5">
+                <label>Gender</label>
+                @Html.DropDownList("Gender", Model.GenderList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-10">
+                <label class="mr-5">Role: </label>
+                @Html.RadioButtonFor(m => m.Role, "Bunisess analyst", 1)
+                <label>Bunisess analyst</label>
+                @Html.RadioButtonFor(m => m.Role, "Project Manager", 2)
+                <label>Project Manager</label>
+                @Html.RadioButtonFor(m => m.Role, "Software Developer", 3)
+                <label>Software Developer</label>
+                @Html.RadioButtonFor(m => m.Role, "Wev designer", 4)
+                <label>Wev designer</label>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-10">
+                <label class="mr-2">Skills </label>
+                @{ for (var i = 0; i < Model.SkillsList.Count(); i++)
+                    {
+                        <span>@Html.CheckBoxFor(m => m.SkillsList[i].Selected, new { @class = "ml-3" })</span>
+                        <label>@Model.SkillsList[i].Text</label>
+                    }
+                }
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-5">
+                <label>Hobbies</label>
+                @Html.ListBoxFor(m=>m.Hobbies, Model.HobbiesList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-10">
+                <label>About</label>
+                @Html.TextAreaFor(m => m.About, new { @class = "form-control", rows = 5,placeholder="About (Max 5000)", maxlength = 5000 })
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-10 text-center">
+                <input type="submit" value="Save" class="btn btn-md btn-success" />
+                <a href="/" class="btn btn-md btn-danger ml-2" >Cancle</a>
+            </div>
+        </div>
+    </form>
+</div>
